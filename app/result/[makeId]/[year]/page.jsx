@@ -23,6 +23,8 @@ export default async function Page({ params }) {
     
     cars = await api.search(makeId, year);
 
+    console.warn(cars.data.Results)
+
 
     if (!cars) {
         return { notFound: true };
@@ -30,15 +32,11 @@ export default async function Page({ params }) {
 
     return (
         <>
-            {
-                cars.data.Results.legth > 0 ?            
-                <div className="flex flex-wrap gap-5">
-                    {cars.data.Results.map((car) => (
-                        <VehicleCard key={car.Model_ID} vehicle={car} />    
-                    ))}
-                </div>
-                : <div className="text-center text-2xl font-bold">Not found</div>
-            }
+            <div className="flex flex-wrap gap-5">
+                {cars.data.Results.map((car) => (
+                    <VehicleCard key={car.Model_ID} vehicle={car} />    
+                ))}
+            </div>
         </>
     );
 }
